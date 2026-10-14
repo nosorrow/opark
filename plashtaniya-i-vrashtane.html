@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="bg" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    (function(){
+      var s=localStorage.getItem('opark-theme');
+      if(s==='light'){document.documentElement.classList.remove('dark');}
+      else{document.documentElement.classList.add('dark');}
+    })();
+  </script>
+
+  <title>Плащания и връщане — OPark</title>
+  <meta name="description" content="Информация за онлайн картови плащания чрез Stripe и условия за връщане на суми в услугата OPark." />
+  <link rel="canonical" href="https://opark.bg/plashtaniya-i-vrashtane.html" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://opark.bg/plashtaniya-i-vrashtane.html" />
+  <meta property="og:title" content="Плащания и връщане — OPark" />
+  <meta property="og:description" content="Информация за онлайн картови плащания чрез Stripe и условия за връщане на суми в услугата OPark." />
+  <meta property="og:site_name" content="OPark" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+</head>
+<body class="bg-white text-slate-900 dark:bg-slate-900 dark:text-white">
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-50 border-b border-slate-100 bg-white/90 backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/90">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+      <a href="/" class="flex items-center gap-2.5 rounded-lg focus-visible:outline-2 focus-visible:outline-teal-500" aria-label="OPark — начало">
+        <img src="/logo.png" alt="logo" class="h-9 w-9" />
+        <span class="text-lg font-bold tracking-tight text-slate-900 dark:text-white">Park</span>
+      </a>
+      <nav aria-label="Главна навигация" class="hidden items-center gap-1 lg:flex">
+        <a href="/#home"         class="nav-link">Начало</a>
+        <a href="/#about"        class="nav-link">За OPark</a>
+        <a href="/#how-it-works" class="nav-link">Как работи</a>
+        <a href="/#benefits"     class="nav-link">Предимства</a>
+        <a href="/#payments"     class="nav-link">Плащания</a>
+        <a href="/#contact"      class="nav-link">Контакти</a>
+      </nav>
+      <div class="flex items-center gap-2">
+        <button data-theme-toggle type="button" aria-label="Превключи към светла тема" title="Светла тема" class="btn-ghost rounded-lg p-2">
+          <svg data-theme-icon-light class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" /></svg>
+          <svg data-theme-icon-dark class="h-5 w-5 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" /></svg>
+        </button>
+        <a href="https://rent.opark.bg" target="_blank" rel="noopener noreferrer" class="btn-primary hidden sm:inline-flex">
+          Към приложението
+          <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" /></svg>
+        </a>
+        <button id="mobile-menu-btn" type="button" aria-label="Отвори меню" aria-expanded="false" aria-controls="mobile-menu" class="btn-ghost rounded-lg p-2 lg:hidden">
+          <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div id="mobile-menu-overlay" class="fixed inset-0 z-40 hidden bg-black/40 backdrop-blur-sm lg:hidden" aria-hidden="true"></div>
+  <div id="mobile-menu" class="fixed right-0 top-0 z-50 flex h-full w-72 translate-x-full flex-col bg-white opacity-0 shadow-2xl transition-all duration-300 pointer-events-none dark:bg-slate-900 lg:hidden" role="dialog" aria-label="Мобилно меню" aria-modal="true">
+    <div class="flex items-center justify-between border-b border-slate-100 px-5 py-4 dark:border-slate-800">
+      <span class="font-bold text-slate-900 dark:text-white">Меню</span>
+      <button id="mobile-menu-close" type="button" aria-label="Затвори меню" class="btn-ghost rounded-lg p-2">
+        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" /></svg>
+      </button>
+    </div>
+    <nav class="flex flex-col gap-1 p-4" aria-label="Мобилна навигация">
+      <a href="/#home"         class="nav-link rounded-lg px-4 py-3 text-base">Начало</a>
+      <a href="/#about"        class="nav-link rounded-lg px-4 py-3 text-base">За OPark</a>
+      <a href="/#how-it-works" class="nav-link rounded-lg px-4 py-3 text-base">Как работи</a>
+      <a href="/#benefits"     class="nav-link rounded-lg px-4 py-3 text-base">Предимства</a>
+      <a href="/#payments"     class="nav-link rounded-lg px-4 py-3 text-base">Плащания</a>
+      <a href="/#contact"      class="nav-link rounded-lg px-4 py-3 text-base">Контакти</a>
+    </nav>
+    <div class="mt-auto border-t border-slate-100 p-4 dark:border-slate-800">
+      <button data-theme-toggle type="button" aria-label="Превключи към светла тема" title="Светла тема" class="btn-secondary mb-3 w-full justify-start gap-3">
+        <svg data-theme-icon-light class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" /></svg>
+        <svg data-theme-icon-dark class="h-4 w-4 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" /></svg>
+        <span data-theme-label>Светла тема</span>
+      </button>
+      <a href="https://rent.opark.bg" target="_blank" rel="noopener noreferrer" class="btn-primary w-full">Към приложението</a>
+    </div>
+  </div>
+
+  <!-- PAGE CONTENT -->
+  <main>
+    <div class="border-b border-slate-100 bg-slate-50 py-12 dark:border-slate-800 dark:bg-slate-800/50">
+      <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center gap-2 mb-4 text-sm text-slate-500 dark:text-slate-400">
+          <a href="/" class="hover:text-teal-600 dark:hover:text-teal-400">Начало</a>
+          <span aria-hidden="true">/</span>
+          <span class="text-slate-700 dark:text-slate-300">Плащания и връщане</span>
+        </div>
+        <h1 class="text-3xl font-bold text-slate-900 dark:text-white sm:text-4xl">Плащания и връщане на суми</h1>
+        
+      </div>
+    </div>
+
+    <article class="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
+      <div class="prose-opark">
+        <h2>1. Налични методи на плащане</h2>
+        <p>
+          Онлайн плащанията в приложението OPark се извършват с банкова дебитна или кредитна карта
+          чрез платежната платформа <strong>Stripe</strong>.
+        </p>
+        <p>
+          Конкретните поддържани типове карти се определят от конфигурацията на Stripe за сметката на OPark.
+        </p>
+        <p>
+          Онлайн плащането е налично само когато е активирано в приложението за съответния наем.
+          Плащания в брой, по банков път или по друг начин не са обект на настоящата страница.
+        </p>
+
+        <h2>2. Как работи онлайн картовото плащане</h2>
+        <p>Процесът на онлайн плащане протича по следния начин:</p>
+        <ol>
+          <li>Наемателят влиза в приложението на адрес <a href="https://rent.opark.bg" target="_blank" rel="noopener noreferrer">rent.opark.bg</a>.</li>
+          <li>Информацията за задълженията по наема и дължимата сума са показани в приложението.</li>
+          <li>При налична опция за онлайн плащане, наемателят е пренасочен към защитена страница на <strong>Stripe Checkout</strong>, хоствана от Stripe.</li>
+          <li>На страницата на Stripe Checkout дължимата сума е ясно показана преди потвърждение на плащането.</li>
+          <li>Наемателят въвежда данните за картата директно в защитената форма на Stripe. OPark не получава достъп до тези данни.</li>
+          <li>След успешна обработка от Stripe, плащането е потвърдено и статусът се актуализира в приложението.</li>
+        </ol>
+
+        <h2>3. Показване на сумата преди плащане</h2>
+        <p>
+          Дължимата сума е показана на наемателя в приложението и на страницата на Stripe Checkout
+          преди финалното потвърждение на плащането. Наемателят е запознат с размера на плащането
+          преди то да бъде извършено.
+        </p>
+
+        <h2>4. Потвърждение на плащането</h2>
+        <p>
+          След успешна обработка от Stripe, статусът на плащането се актуализира автоматично
+          в приложението. При технически проблем или неуспешна трансакция, Stripe информира
+          потребителя за причината.
+        </p>
+        <p>
+          <!-- ⚠ OWNER: Do you send email confirmations to tenants after payment? -->
+          При въпроси относно статуса на дадено плащане, моля свържете се с нас (вж. раздел 7).
+        </p>
+
+        <h2>5. Ако плащането изглежда неуспешно или статусът е неясен</h2>
+        <p>Ако сте извършили плащане, но то не се отразява в приложението или имате съмнения:</p>
+        <ul>
+          <li>Изчакайте няколко минути — понякога е необходимо кратко време за обработка и актуализация.</li>
+          <li>Проверете дали получавате известие от вашата банка за успешна транзакция.</li>
+          <li>Ако проблемът продължава, свържете се с нас чрез посочените контакти в раздел 7.</li>
+          <li>Не извършвайте повторно плащане, без да сте се свързали с нас — за да избегнете двойно таксуване.</li>
+        </ul>
+
+        <h2>6. Условия за отмяна и връщане на суми</h2>
+
+        <div class="warning">
+          <strong>⚠ OWNER — задължително попълване:</strong> Следващият раздел съдържа примерна структура.
+          Условията за отмяна на наем и връщане на суми ТРЯБВА да бъдат потвърдени и попълнени от
+          собственика въз основа на реалната политика на OPark. Не публикувайте без попълване.
+        </div>
+
+        <h3>6.1 Отмяна на наем</h3>
+        <p>
+          <!-- ⚠ OWNER: Describe cancellation policy — can tenants cancel? what are the conditions? -->
+          Условията за отмяна на договор за наем на паркомясто или гараж се определят индивидуално
+          и следва да бъдат уточнени с оператора на услугата.
+        </p>
+
+        <h3>6.2 Връщане на платена сума</h3>
+        <p>
+          <!-- ⚠ OWNER: Describe refund policy — when are refunds possible? timeline? conditions? -->
+          При грешно или двойно извършено плащане, моля незабавно се свържете с нас. Всяко искане
+          за връщане на сума се разглежда индивидуално.
+        </p>
+        <p>
+          
+          Връщането на суми, когато е одобрено, се обработва чрез Stripe и се отразява по картата
+          на наемателя в рамките на срока, определен от издателя на картата.
+        </p>
+
+        <h3>6.3 Такси и удръжки</h3>
+        <p>
+          <!-- ⚠ OWNER: Are there any processing fees? any non-refundable amounts? -->
+          Информацията относно евентуални такси при връщане на суми следва да бъде потвърдена
+          от оператора на услугата.
+        </p>
+
+        <h2>7. Контакти при въпроси за плащане</h2>
+        <p>
+          При въпроси, свързани с плащане, неуспешна транзакция или искане за връщане на сума,
+          свържете се с нас на:
+        </p>
+        <ul>
+          
+          <li>Имейл: <a href="mailto:support@rent.opark.bg">support@rent.opark.bg</a></li>
+          <li>Публичен сайт: <a href="https://opark.bg">https://opark.bg</a></li>
+        </ul>
+        <p>
+          
+          Стараем се да отговаряме в разумен срок.
+        </p>
+
+        <h2>8. Ролята на Stripe</h2>
+        <p>
+          <a href="https://stripe.com" target="_blank" rel="noopener noreferrer">Stripe, Inc.</a> е
+          независим доставчик на платежни услуги, използван от OPark за обработка на онлайн
+          картови плащания. OPark не съхранява и не обработва директно данни за платежни карти.
+        </p>
+        <p>
+          Stripe не е оператор на услугата OPark и не носи отговорност за нея. Политиката за
+          поверителност на Stripe е достъпна на
+          <a href="https://stripe.com/privacy" target="_blank" rel="noopener noreferrer">stripe.com/privacy</a>.
+        </p>
+
+        <h2>9. Промени в настоящата страница</h2>
+        <p>
+          OPark си запазва правото да актуализира информацията за плащания и връщане на суми.
+          Актуалната версия е достъпна на адрес
+          <a href="/plashtaniya-i-vrashtane.html">https://opark.bg/plashtaniya-i-vrashtane.html</a>.
+        </p>
+
+      </div>
+    </article>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-200 bg-white py-12 dark:border-slate-800 dark:bg-slate-950">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div class="lg:col-span-2">
+          <a href="/" class="mb-3 flex items-center gap-2.5">
+            <img src="/logo.png" alt="logo" class="h-9 w-9" />
+            <span class="text-lg font-bold text-slate-900 dark:text-white">Park</span>
+          </a>
+          <p class="mb-4 max-w-xs text-sm text-slate-500 dark:text-slate-400">
+            OPark — платформа за управление на наеми за паркоместа и гаражи с онлайн плащания.
+          </p>
+          <a href="mailto:support@rent.opark.bg" class="text-sm text-teal-600 underline underline-offset-2 dark:text-teal-400">support@rent.opark.bg</a>
+        </div>
+        <div>
+          <h3 class="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Навигация</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/#home"         class="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Начало</a></li>
+            <li><a href="/#about"        class="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">За OPark</a></li>
+            <li><a href="/#how-it-works" class="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Как работи</a></li>
+            <li><a href="/#payments"     class="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Плащания</a></li>
+            <li><a href="/#contact"      class="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Контакти</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Правна информация</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/usloviya.html"               class="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Условия за ползване</a></li>
+            <li><a href="/plashtaniya-i-vrashtane.html" class="text-teal-600 dark:text-teal-400 font-medium">Плащания и връщане</a></li>
+            <li><a href="/poveritelnost.html"          class="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Поверителност</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-10 border-t border-slate-100 pt-6 text-center text-sm text-slate-400 dark:border-slate-800 dark:text-slate-500">
+        &copy; <span data-year></span> OPark. Всички права запазени.
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/assets/js/theme.js"></script>
+  <script type="module" src="/assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,869 @@
+<!doctype html>
+<html lang="bg" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Prevent theme flash: apply theme before paint -->
+  <script>
+    (function(){
+      var s=localStorage.getItem('opark-theme');
+      if(s==='light'){document.documentElement.classList.remove('dark');}
+      else{document.documentElement.classList.add('dark');}
+    })();
+  </script>
+
+  <title>OPark — Управление на наеми за паркоместа и гаражи</title>
+  <meta name="description" content="OPark предлага удобен начин за управление на наеми за паркоместа и гаражи, с онлайн достъп до задължения и картови плащания чрез Stripe." />
+  <link rel="canonical" href="https://opark.bg/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://opark.bg/" />
+  <meta property="og:title" content="OPark — Управление на наеми за паркоместа и гаражи" />
+  <meta property="og:description" content="OPark предлага удобен начин за управление на наеми за паркоместа и гаражи, с онлайн достъп до задължения и картови плащания чрез Stripe." />
+  <meta property="og:site_name" content="OPark" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS v4 + custom styles -->
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+</head>
+<body class="bg-white text-slate-900 dark:bg-slate-900 dark:text-white">
+
+  <!-- ════════════════════════════════════════════
+       HEADER / NAVIGATION
+  ════════════════════════════════════════════ -->
+  <header class="sticky top-0 z-50 border-b border-slate-100 bg-white/90 backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/90">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+
+      <!-- Logo / Wordmark -->
+      <a href="/" class="flex items-center gap-2.5 rounded-lg focus-visible:outline-2 focus-visible:outline-teal-500" aria-label="OPark — начало">
+<!--        <img src="/logo.png" alt="logo" class="h-9 w-9" />-->
+          <img src="logo.png" alt="logo" class="h-9 w-9" />
+          <span class="text-lg font-bold tracking-tight text-slate-900 dark:text-white">Park</span>
+      </a>
+
+      <!-- Desktop nav -->
+      <nav aria-label="Главна навигация" class="hidden items-center gap-1 lg:flex">
+        <a href="#home"         data-nav-link class="nav-link">Начало</a>
+        <a href="#about"        data-nav-link class="nav-link">За OPark</a>
+        <a href="#how-it-works" data-nav-link class="nav-link">Как работи</a>
+        <a href="#benefits"     data-nav-link class="nav-link">Предимства</a>
+        <a href="#payments"     data-nav-link class="nav-link">Плащания</a>
+        <a href="#contact"      data-nav-link class="nav-link">Контакти</a>
+      </nav>
+
+      <!-- Right: theme + CTA -->
+      <div class="flex items-center gap-2">
+        <!-- Theme toggle -->
+        <button
+          data-theme-toggle
+          type="button"
+          aria-label="Превключи към светла тема"
+          title="Светла тема"
+          class="btn-ghost rounded-lg p-2"
+        >
+          <!-- Sun icon (shown in dark mode — click to go light) -->
+          <svg data-theme-icon-light class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+          </svg>
+          <!-- Moon icon (shown in light mode — click to go dark) -->
+          <svg data-theme-icon-dark class="h-5 w-5 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+          </svg>
+        </button>
+
+        <!-- CTA button (desktop) -->
+        <a href="https://rent.opark.bg" target="_blank" rel="noopener noreferrer" class="btn-primary hidden sm:inline-flex">
+          Към приложението
+          <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+          </svg>
+        </a>
+
+        <!-- Mobile menu button -->
+        <button
+          id="mobile-menu-btn"
+          type="button"
+          aria-label="Отвори меню"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          class="btn-ghost rounded-lg p-2 lg:hidden"
+        >
+          <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile menu overlay -->
+  <div id="mobile-menu-overlay" class="fixed inset-0 z-40 hidden bg-black/40 backdrop-blur-sm lg:hidden" aria-hidden="true"></div>
+
+  <!-- Mobile menu panel -->
+  <div
+    id="mobile-menu"
+    class="fixed right-0 top-0 z-50 flex h-full w-72 translate-x-full flex-col bg-white opacity-0 shadow-2xl transition-all duration-300 pointer-events-none dark:bg-slate-900 lg:hidden"
+    role="dialog"
+    aria-label="Мобилно меню"
+    aria-modal="true"
+  >
+    <!-- Mobile menu header -->
+    <div class="flex items-center justify-between border-b border-slate-100 px-5 py-4 dark:border-slate-800">
+      <span class="font-bold text-slate-900 dark:text-white">Меню</span>
+      <button id="mobile-menu-close" type="button" aria-label="Затвори меню" class="btn-ghost rounded-lg p-2">
+        <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile nav links -->
+    <nav class="flex flex-col gap-1 p-4" aria-label="Мобилна навигация">
+      <a href="#home"         class="nav-link rounded-lg px-4 py-3 text-base">Начало</a>
+      <a href="#about"        class="nav-link rounded-lg px-4 py-3 text-base">За OPark</a>
+      <a href="#how-it-works" class="nav-link rounded-lg px-4 py-3 text-base">Как работи</a>
+      <a href="#benefits"     class="nav-link rounded-lg px-4 py-3 text-base">Предимства</a>
+      <a href="#payments"     class="nav-link rounded-lg px-4 py-3 text-base">Плащания</a>
+      <a href="#contact"      class="nav-link rounded-lg px-4 py-3 text-base">Контакти</a>
+    </nav>
+
+    <div class="mt-auto border-t border-slate-100 p-4 dark:border-slate-800">
+      <!-- Mobile theme toggle -->
+      <button data-theme-toggle type="button" aria-label="Превключи към светла тема" title="Светла тема" class="btn-secondary mb-3 w-full justify-start gap-3">
+        <svg data-theme-icon-light class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+        </svg>
+        <svg data-theme-icon-dark class="h-4 w-4 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+        </svg>
+        <span data-theme-label>Светла тема</span>
+      </button>
+      <a href="https://rent.opark.bg" target="_blank" rel="noopener noreferrer" class="btn-primary w-full">
+        Към приложението
+        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+        </svg>
+      </a>
+    </div>
+  </div>
+
+  <main id="main-content">
+
+    <!-- ════════════════════════════════════════════
+         HERO — #home
+    ════════════════════════════════════════════ -->
+    <section id="home" class="relative overflow-hidden bg-white dark:bg-slate-900">
+      <!-- Background gradient -->
+      <div class="hero-gradient pointer-events-none absolute inset-0" aria-hidden="true"></div>
+
+      <div class="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-32">
+        <div class="grid items-center gap-12 lg:grid-cols-2">
+
+          <!-- Left: text -->
+          <div class="text-center lg:text-left">
+            <span class="section-label mb-6 inline-block">Управление на наеми</span>
+
+            <h1 class="mb-6 text-4xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-5xl lg:text-6xl dark:text-white">
+              Паркирането и управлението на наеми —
+              <span class="text-gradient"> по-лесно.</span>
+            </h1>
+
+            <p class="mb-8 text-lg leading-relaxed text-slate-600 dark:text-slate-400 lg:text-xl">
+              OPark предлага удобен начин за управление на наеми за паркоместа и гаражи,
+              с лесен достъп до информация за задълженията и възможност за онлайн картови плащания.
+            </p>
+
+            <div class="flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+              <a href="https://rent.opark.bg" target="_blank" rel="noopener noreferrer" class="btn-primary text-base px-8 py-3.5">
+                Към приложението
+                <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+                </svg>
+              </a>
+              <a href="#how-it-works" class="btn-secondary text-base px-8 py-3.5">
+                Как работи
+                <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right: illustrative visual -->
+          <div class="flex justify-center lg:justify-end" aria-hidden="true">
+            <div class="relative w-full max-w-sm">
+              <!-- Decorative card — illustrative, not real data -->
+              <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-xl dark:border-slate-800 dark:bg-slate-800">
+                <div class="mb-4 flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-500 text-white font-bold text-lg">O</div>
+                    <div>
+                      <div class="text-sm font-semibold text-slate-900 dark:text-white">OPark</div>
+                      <div class="text-xs text-slate-500 dark:text-slate-400">Управление на наеми</div>
+                    </div>
+                  </div>
+                  <span class="rounded-full bg-teal-50 px-2.5 py-1 text-xs font-medium text-teal-700 dark:bg-teal-900/30 dark:text-teal-400">Активно</span>
+                </div>
+
+                <!-- Illustrative info rows -->
+                <div class="space-y-3">
+                  <div class="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3 dark:bg-slate-700/50">
+                    <div class="flex items-center gap-2.5">
+                      <svg class="h-5 w-5 text-teal-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 0 0-10.026 0 1.106 1.106 0 0 0-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12" />
+                      </svg>
+                      <span class="text-sm text-slate-600 dark:text-slate-300">Паркомясто</span>
+                    </div>
+                    <span class="text-sm font-medium text-slate-800 dark:text-slate-100">А-12</span>
+                  </div>
+
+                  <div class="flex items-center justify-between rounded-xl bg-slate-50 px-4 py-3 dark:bg-slate-700/50">
+                    <div class="flex items-center gap-2.5">
+                      <svg class="h-5 w-5 text-cyan-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                      </svg>
+                      <span class="text-sm text-slate-600 dark:text-slate-300">Период</span>
+                    </div>
+                    <span class="text-sm font-medium text-slate-800 dark:text-slate-100">Октомври 2025</span>
+                  </div>
+
+                  <div class="flex items-center justify-between rounded-xl bg-teal-50 px-4 py-3 dark:bg-teal-900/20">
+                    <div class="flex items-center gap-2.5">
+                      <svg class="h-5 w-5 text-teal-600 dark:text-teal-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
+                      </svg>
+                      <span class="text-sm font-semibold text-teal-700 dark:text-teal-300">Онлайн плащане</span>
+                    </div>
+                    <span class="text-sm font-bold text-teal-700 dark:text-teal-300">Достъпно</span>
+                  </div>
+                </div>
+
+                <!-- Illustrative disclaimer -->
+                <p class="mt-4 text-center text-xs text-slate-400 dark:text-slate-500">
+                  * Илюстративен пример, не отразява реални данни
+                </p>
+              </div>
+
+              <!-- Decorative blobs -->
+              <div class="absolute -right-6 -top-6 h-24 w-24 rounded-full bg-teal-400/10 blur-2xl" aria-hidden="true"></div>
+              <div class="absolute -bottom-6 -left-6 h-20 w-20 rounded-full bg-cyan-400/10 blur-2xl" aria-hidden="true"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         ABOUT — #about
+    ════════════════════════════════════════════ -->
+    <section id="about" class="border-t border-slate-100 bg-slate-50 py-20 dark:border-slate-800 dark:bg-slate-800/50">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+        <div class="mx-auto mb-14 max-w-2xl text-center">
+          <span class="section-label mb-4 inline-block">За услугата</span>
+          <h2 class="mb-4 text-3xl font-bold text-slate-900 sm:text-4xl dark:text-white">Какво е OPark?</h2>
+          <p class="text-lg text-slate-600 dark:text-slate-400">
+            OPark е платформа, създадена да улесни управлението на наеми за паркоместа и гаражи
+            — за наемодатели и наематели.
+          </p>
+        </div>
+
+        <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+
+          <!-- Card 1 -->
+          <div class="card border-slate-200 dark:border-slate-700 p-6">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-teal-50 dark:bg-teal-900/20">
+              <svg class="h-6 w-6 text-teal-600 dark:text-teal-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <!-- Garage icon -->
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 10.5l9.75-6 9.75 6" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 9v10.5a.75.75 0 00.75.75h13.5a.75.75 0 00.75-.75V9" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 12h9M7.5 15h9M7.5 18h9" />
+              </svg>
+            </div>
+            <h3 class="mb-2 text-lg font-semibold text-slate-900 dark:text-white">Паркоместа и гаражи</h3>
+            <p class="text-slate-600 dark:text-slate-400">
+              Услугата е насочена към управлението на наеми за паркоместа и гаражи.
+            </p>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="card border-slate-200 dark:border-slate-700 p-6">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-50 dark:bg-cyan-900/20">
+              <svg class="h-6 w-6 text-cyan-600 dark:text-cyan-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+              </svg>
+            </div>
+            <h3 class="mb-2 text-lg font-semibold text-slate-900 dark:text-white">Преглед на задължения</h3>
+            <p class="text-slate-600 dark:text-slate-400">
+              Чрез приложението на адрес <a href="https://rent.opark.bg" target="_blank" rel="noopener noreferrer" class="text-teal-600 underline underline-offset-2 hover:text-teal-700 dark:text-teal-400">rent.opark.bg</a>
+              и сканиране на QR код наемателите могат да видят и платят дължимата сума за наема.
+            </p>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="card border-slate-200 dark:border-slate-700 p-6">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-teal-50 dark:bg-teal-900/20">
+              <svg class="h-6 w-6 text-teal-600 dark:text-teal-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
+              </svg>
+            </div>
+            <h3 class="mb-2 text-lg font-semibold text-slate-900 dark:text-white">Онлайн плащания</h3>
+            <p class="text-slate-600 dark:text-slate-400">
+              Когато е налична опция за онлайн плащане, наемателите могат да извършат картово плащане
+              сигурно чрез Stripe Checkout директно от приложението.
+            </p>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="card border-slate-200 dark:border-slate-700 p-6">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-700">
+              <svg class="h-6 w-6 text-slate-600 dark:text-slate-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+              </svg>
+            </div>
+            <h3 class="mb-2 text-lg font-semibold text-slate-900 dark:text-white">Два отделни домейна</h3>
+            <p class="text-slate-600 dark:text-slate-400">
+              Този публичен сайт (<strong>opark.bg</strong>) е информационна страница за услугата.
+              Самото приложение за управление на наеми се намира на <a href="https://rent.opark.bg" target="_blank" rel="noopener noreferrer" class="text-teal-600 underline underline-offset-2 dark:text-teal-400">rent.opark.bg</a>.
+            </p>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="card border-slate-200 dark:border-slate-700 p-6">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-50 dark:bg-cyan-900/20">
+              <svg class="h-6 w-6 text-cyan-600 dark:text-cyan-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+              </svg>
+            </div>
+            <h3 class="mb-2 text-lg font-semibold text-slate-900 dark:text-white">Сигурност на плащанията</h3>
+            <p class="text-slate-600 dark:text-slate-400">
+              Картовите плащания се обработват от <strong>Stripe</strong> — международен доставчик на
+              платежни услуги. OPark не съхранява и не обработва директно данни за платежни карти.
+            </p>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="card border-slate-200 dark:border-slate-700 p-6">
+            <div class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-teal-50 dark:bg-teal-900/20">
+              <svg class="h-6 w-6 text-teal-600 dark:text-teal-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+              </svg>
+            </div>
+            <h3 class="mb-2 text-lg font-semibold text-slate-900 dark:text-white">Достъп от всяко устройство</h3>
+            <p class="text-slate-600 dark:text-slate-400">
+              Приложението е достъпно от уеб браузър на компютър, таблет или смартфон —
+              без необходимост от инсталация на допълнителен софтуер.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         HOW IT WORKS — #how-it-works
+    ════════════════════════════════════════════ -->
+    <section id="how-it-works" class="bg-white py-20 dark:bg-slate-900">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+        <div class="mx-auto mb-14 max-w-2xl text-center">
+          <span class="section-label mb-4 inline-block">Процес</span>
+          <h2 class="mb-4 text-3xl font-bold text-slate-900 sm:text-4xl dark:text-white">Как работи OPark?</h2>
+          <p class="text-lg text-slate-600 dark:text-slate-400">
+            Четири прости стъпки от достъп до потвърдено плащане.
+          </p>
+        </div>
+
+        <div class="relative">
+          <!-- Connecting line (desktop) -->
+          <div class="absolute left-1/2 top-5 hidden h-0.5 w-3/4 -translate-x-1/2 bg-gradient-to-r from-transparent via-teal-200 to-transparent lg:block dark:via-teal-800" aria-hidden="true"></div>
+
+          <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+
+            <!-- Step 1 -->
+            <div class="relative flex flex-col items-center text-center">
+              <div class="step-badge mb-4 relative z-10">1</div>
+              <div class="card w-full border-slate-200 dark:border-slate-800 p-6 h-full">
+                <div class="mb-3 flex justify-center">
+                  <!-- QR code icon -->
+                  <svg class="h-8 w-8 text-teal-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 3.75 9.375v-4.5ZM3.75 14.625c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5a1.125 1.125 0 0 1-1.125-1.125v-4.5ZM13.5 4.875c0-.621.504-1.125 1.125-1.125h4.5c.621 0 1.125.504 1.125 1.125v4.5c0 .621-.504 1.125-1.125 1.125h-4.5A1.125 1.125 0 0 1 13.5 9.375v-4.5ZM6.75 6.75h.75v.75h-.75v-.75ZM6.75 16.5h.75v.75h-.75v-.75ZM16.5 6.75h.75v.75h-.75v-.75ZM13.5 13.5h.75v.75h-.75v-.75ZM13.5 19.5h.75v.75h-.75v-.75ZM19.5 13.5h.75v.75h-.75v-.75ZM19.5 19.5h.75v.75h-.75v-.75ZM16.5 16.5h.75v.75h-.75v-.75Z" />
+                  </svg>
+                </div>
+                <h3 class="mb-2 font-semibold text-slate-900 dark:text-white">Сканиране на QR код</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-400">
+                  Наемателят сканира QR кода (поставен на видно място), който го отвежда директно
+                  до неговата персонална страница със задълженията по наема.
+                </p>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="relative flex flex-col items-center text-center">
+              <div class="step-badge mb-4 relative z-10">2</div>
+              <div class="card w-full border-slate-200 dark:border-slate-800 p-6 h-full">
+                <div class="mb-3 flex justify-center">
+                  <svg class="h-8 w-8 text-teal-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 0 0 2.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 0 0-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 0 0 .75-.75 2.25 2.25 0 0 0-.1-.664m-5.8 0A2.251 2.251 0 0 1 13.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25ZM6.75 12h.008v.008H6.75V12Zm0 3h.008v.008H6.75V15Zm0 3h.008v.008H6.75V18Z" />
+                  </svg>
+                </div>
+                <h3 class="mb-2 font-semibold text-slate-900 dark:text-white">Преглед на задълженията</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-400">
+                  В приложението наемателят вижда информацията за наема и размера на дължимата сума.
+                </p>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="relative flex flex-col items-center text-center">
+              <div class="step-badge mb-4 relative z-10">3</div>
+              <div class="card w-full border-slate-200 dark:border-slate-800 p-6 h-full">
+                <div class="mb-3 flex justify-center">
+                  <svg class="h-8 w-8 text-teal-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
+                  </svg>
+                </div>
+                <h3 class="mb-2 font-semibold text-slate-900 dark:text-white">Онлайн плащане</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-400">
+                  Когато е налична опцията за онлайн плащане, наемателят преминава към защитена
+                  страница на Stripe Checkout, където вижда сумата преди потвърждение.
+                </p>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="relative flex flex-col items-center text-center">
+              <div class="step-badge mb-4 relative z-10">4</div>
+              <div class="card w-full border-slate-200 dark:border-slate-800 p-6 h-full">
+                <div class="mb-3 flex justify-center">
+                  <svg class="h-8 w-8 text-teal-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                  </svg>
+                </div>
+                <h3 class="mb-2 font-semibold text-slate-900 dark:text-white">Потвърждение</h3>
+                <p class="text-sm text-slate-600 dark:text-slate-400">
+                  След успешна обработка от Stripe, статусът на плащането се актуализира
+                  в приложението.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="mt-10 text-center">
+          <a href="https://rent.opark.bg" target="_blank" rel="noopener noreferrer" class="btn-primary">
+            Отвори приложението
+            <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+            </svg>
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         BENEFITS — #benefits
+    ════════════════════════════════════════════ -->
+    <section id="benefits" class="bg-slate-50 py-20 dark:bg-slate-800/50">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+        <div class="mx-auto mb-14 max-w-2xl text-center">
+          <span class="section-label mb-4 inline-block">Предимства</span>
+          <h2 class="mb-4 text-3xl font-bold text-slate-900 sm:text-4xl dark:text-white">Защо OPark?</h2>
+          <p class="text-lg text-slate-600 dark:text-slate-400">
+            По-малко административна работа, по-ясна информация, по-удобни плащания.
+          </p>
+        </div>
+
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
+          <!-- Benefit 1 -->
+          <div class="flex gap-4 rounded-2xl bg-white p-6 shadow-sm dark:bg-slate-800 dark:border dark:border-slate-800">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-teal-50 dark:bg-teal-900/30">
+              <svg class="h-5 w-5 text-teal-600 dark:text-teal-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="mb-1 font-semibold text-slate-900 dark:text-white">Бърз достъп до информация</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400">
+                Наемателите могат да видят актуалната информация за своя наем по всяко време
+                директно от браузъра.
+              </p>
+            </div>
+          </div>
+
+          <!-- Benefit 2 -->
+          <div class="flex gap-4 rounded-2xl bg-white p-6 shadow-sm dark:bg-slate-800 dark:border dark:border-slate-800">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-cyan-50 dark:bg-cyan-900/30">
+              <svg class="h-5 w-5 text-cyan-600 dark:text-cyan-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="mb-1 font-semibold text-slate-900 dark:text-white">Прозрачност на задълженията</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400">
+                Ясно показване на дължимите суми преди извършване на плащане — без изненади.
+              </p>
+            </div>
+          </div>
+
+          <!-- Benefit 3 -->
+          <div class="flex gap-4 rounded-2xl bg-white p-6 shadow-sm dark:bg-slate-800 dark:border dark:border-slate-800">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-teal-50 dark:bg-teal-900/30">
+              <svg class="h-5 w-5 text-teal-600 dark:text-teal-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="mb-1 font-semibold text-slate-900 dark:text-white">Онлайн картово плащане</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400">
+                Когато е налично, плащането се извършва бързо и сигурно чрез Stripe Checkout
+                без нужда от лично посещение.
+              </p>
+            </div>
+          </div>
+
+          <!-- Benefit 4 -->
+          <div class="flex gap-4 rounded-2xl bg-white p-6 shadow-sm dark:bg-slate-800 dark:border dark:border-slate-800">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-700">
+              <svg class="h-5 w-5 text-slate-600 dark:text-slate-300" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="mb-1 font-semibold text-slate-900 dark:text-white">По-малко координация</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400">
+                Намалена нужда от телефонни обаждания и лична кореспонденция за уточняване
+                на суми и срокове.
+              </p>
+            </div>
+          </div>
+
+          <!-- Benefit 5 -->
+          <div class="flex gap-4 rounded-2xl bg-white p-6 shadow-sm dark:bg-slate-800 dark:border dark:border-slate-800">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-cyan-50 dark:bg-cyan-900/30">
+              <svg class="h-5 w-5 text-cyan-600 dark:text-cyan-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="mb-1 font-semibold text-slate-900 dark:text-white">Достъп от всяко устройство</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400">
+                Приложението работи в браузъра — не е необходима инсталация. Достъпно от
+                телефон, таблет или компютър.
+              </p>
+            </div>
+          </div>
+
+          <!-- Benefit 6 -->
+          <div class="flex gap-4 rounded-2xl bg-white p-6 shadow-sm dark:bg-slate-800 dark:border dark:border-slate-800">
+            <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-teal-50 dark:bg-teal-900/30">
+              <svg class="h-5 w-5 text-teal-600 dark:text-teal-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="mb-1 font-semibold text-slate-900 dark:text-white">Сигурна обработка</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400">
+                Плащанията се обработват от Stripe — OPark не съхранява данни за
+                платежни карти на своите сървъри.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         ONLINE PAYMENTS — #payments
+    ════════════════════════════════════════════ -->
+    <section id="payments" class="bg-white py-20 dark:bg-slate-900">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+        <div class="grid items-center gap-12 lg:grid-cols-2">
+
+          <!-- Left: content -->
+          <div>
+            <span class="section-label mb-4 inline-block">Онлайн плащания</span>
+            <h2 class="mb-4 text-3xl font-bold text-slate-900 sm:text-4xl dark:text-white">
+              Как се извършват плащанията?
+            </h2>
+            <p class="mb-6 text-lg text-slate-600 dark:text-slate-400">
+              OPark предоставя достъп до онлайн картови плащания на наем чрез сигурната платежна
+              инфраструктура на Stripe. Целият процес се осъществява чрез приложението
+              на адрес <a href="https://rent.opark.bg" target="_blank" rel="noopener noreferrer" class="text-teal-600 underline underline-offset-2 dark:text-teal-400">rent.opark.bg</a>.
+            </p>
+
+            <ul class="mb-8 space-y-4">
+              <li class="flex gap-3">
+                <svg class="mt-0.5 h-5 w-5 shrink-0 text-teal-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                </svg>
+                <span class="text-slate-700 dark:text-slate-300">
+                  Сканиране на <strong>QR код</strong>, който отвежда наемателя директно до страницата с неговите задължения — без необходимост от регистрация на публичния сайт.
+                </span>
+              </li>
+              <li class="flex gap-3">
+                <svg class="mt-0.5 h-5 w-5 shrink-0 text-teal-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                </svg>
+                <span class="text-slate-700 dark:text-slate-300">
+                  Преглед на задълженията и размера на дължимата сума директно в приложението.
+                </span>
+              </li>
+              <li class="flex gap-3">
+                <svg class="mt-0.5 h-5 w-5 shrink-0 text-teal-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                </svg>
+                <span class="text-slate-700 dark:text-slate-300">
+                  При налична опция за онлайн плащане — преход към <strong>Stripe Checkout</strong>, където
+                  сумата се показва преди потвърждение.
+                </span>
+              </li>
+              <li class="flex gap-3">
+                <svg class="mt-0.5 h-5 w-5 shrink-0 text-teal-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                </svg>
+                <span class="text-slate-700 dark:text-slate-300">
+                  Статусът на плащането се актуализира след успешна обработка от Stripe.
+                </span>
+              </li>
+              <li class="flex gap-3">
+                <svg class="mt-0.5 h-5 w-5 shrink-0 text-teal-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                </svg>
+                <span class="text-slate-700 dark:text-slate-300">
+                  При въпроси или проблеми с плащане — свържете се с нас чрез <a href="#contact" class="text-teal-600 underline underline-offset-2 dark:text-teal-400">раздела за контакти</a>.
+                </span>
+              </li>
+            </ul>
+
+            <div class="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800 dark:border-amber-800/40 dark:bg-amber-900/20 dark:text-amber-300">
+              <strong>Забележка:</strong> Stripe е независим доставчик на платежни услуги. OPark не съхранява
+              и не обработва директно данни за платежни карти. Stripe не е оператор на услугата OPark
+              и не носи отговорност за нея.
+            </div>
+          </div>
+
+          <!-- Right: visual -->
+          <div class="flex justify-center lg:justify-end" aria-hidden="true">
+            <div class="w-full max-w-sm space-y-4">
+
+              <!-- Payment flow card -->
+              <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-800">
+                <div class="mb-3 flex items-center gap-2 text-sm font-medium text-slate-500 dark:text-slate-400">
+                  <svg class="h-4 w-4 text-teal-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                  </svg>
+                  Сигурно плащане чрез Stripe
+                </div>
+
+                <div class="mb-4 flex items-center justify-between">
+                  <span class="text-sm text-slate-600 dark:text-slate-300">Дължима сума</span>
+                  <span class="text-xl font-bold text-slate-900 dark:text-white">— EUR</span>
+                </div>
+
+                <div class="space-y-2">
+                  <div class="flex items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2.5 dark:border-slate-600 dark:bg-slate-700">
+                    <svg class="h-5 w-5 text-slate-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
+                    </svg>
+                    <span class="text-sm text-slate-400 dark:text-slate-400">•••• •••• •••• ••••</span>
+                  </div>
+                </div>
+
+                <button type="button" disabled class="mt-4 w-full cursor-not-allowed rounded-xl bg-teal-500/50 px-4 py-2.5 text-sm font-semibold text-white">
+                  Плати сигурно
+                </button>
+
+                <p class="mt-3 text-center text-xs text-slate-400 dark:text-slate-500">
+                  * Илюстративен пример. Плащанията се извършват в rent.opark.bg
+                </p>
+              </div>
+
+              <!-- Trust badges -->
+              <div class="flex justify-center gap-4 text-xs text-slate-500 dark:text-slate-400">
+                <div class="flex items-center gap-1">
+                  <svg class="h-3.5 w-3.5 text-teal-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  SSL защитено
+                </div>
+                <div class="flex items-center gap-1">
+                  <svg class="h-3.5 w-3.5 text-teal-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                  Powered by Stripe
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="mt-10 text-center lg:hidden">
+          <a href="https://rent.opark.bg" target="_blank" rel="noopener noreferrer" class="btn-primary">
+            Отвори приложението
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         CONTACT — #contact
+    ════════════════════════════════════════════ -->
+    <section id="contact" class="bg-slate-50 py-20 dark:bg-slate-800/50">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+        <div class="mx-auto max-w-2xl text-center">
+          <span class="section-label mb-4 inline-block">Контакти</span>
+          <h2 class="mb-4 text-3xl font-bold text-slate-900 sm:text-4xl dark:text-white">
+            Свържете се с нас
+          </h2>
+          <p class="mb-10 text-lg text-slate-600 dark:text-slate-400">
+            При въпроси относно услугата, задълженията по наем или онлайн плащания,
+            не се колебайте да се свържете с нас.
+          </p>
+
+          <div class="grid gap-4 sm:grid-cols-2">
+
+            <!-- Email card -->
+            <div class="card border-slate-200 dark:border-slate-700 p-6 text-left">
+              <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-teal-50 dark:bg-teal-900/20">
+                <svg class="h-5 w-5 text-teal-600 dark:text-teal-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+                </svg>
+              </div>
+              <h3 class="mb-1 font-semibold text-slate-900 dark:text-white">Имейл</h3>
+              <!-- TODO: Replace with verified email address -->
+              <a href="mailto:support@rent.opark.bg" class="text-teal-600 underline underline-offset-2 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300">
+                support@rent.opark.bg
+              </a>
+              <p class="mt-1 text-xs text-slate-400 dark:text-slate-500">
+                <!-- ⚠ OWNER: Confirm this email address before publishing -->
+              </p>
+            </div>
+
+            <!-- App card -->
+            <div class="card border-slate-200 dark:border-slate-700 p-6 text-left">
+              <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-50 dark:bg-cyan-900/20">
+                <svg class="h-5 w-5 text-cyan-600 dark:text-cyan-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0 1 12 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 0 1 3 12c0-1.605.42-3.113 1.157-4.418" />
+                </svg>
+              </div>
+              <h3 class="mb-1 font-semibold text-slate-900 dark:text-white">Приложението</h3>
+              <a href="https://rent.opark.bg" target="_blank" rel="noopener noreferrer" class="text-teal-600 underline underline-offset-2 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300">
+                rent.opark.bg
+              </a>
+              <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                Управление на наеми и онлайн плащания
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════════════════
+         FINAL CTA
+    ════════════════════════════════════════════ -->
+    <section class="bg-gradient-to-br from-slate-900 via-slate-800 to-teal-900 py-20 dark:from-slate-900 dark:via-slate-900 dark:to-teal-950">
+      <div class="mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+        <h2 class="mb-4 text-3xl font-bold text-white sm:text-4xl">
+          Управлявайте наемите си по-лесно.
+        </h2>
+        <p class="mb-8 text-lg text-slate-300">
+          Достъп до информация за задълженията и онлайн плащания — всичко на едно място
+          в приложението OPark.
+        </p>
+        <a href="https://rent.opark.bg" target="_blank" rel="noopener noreferrer"
+           class="inline-flex items-center gap-2 rounded-xl bg-teal-500 px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-200 hover:bg-teal-400 hover:shadow-xl active:scale-95">
+          Към OPark
+          <svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+          </svg>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ════════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════════ -->
+  <footer class="border-t border-slate-200 bg-white py-12 dark:border-slate-800 dark:bg-slate-950">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+      <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+
+        <!-- Brand -->
+        <div class="lg:col-span-2">
+          <a href="/" class="mb-3 flex items-center gap-2.5" aria-label="OPark — начало">
+<!--            <span class="flex h-9 w-9 items-center justify-center rounded-xl bg-slate-900 text-lg font-extrabold text-teal-400 dark:bg-teal-500 dark:text-slate-900">O</span>-->
+              <img src="logo.png" alt="logo" class="h-9 w-9">
+              <span class="text-lg font-bold text-slate-900 dark:text-white">Park</span>
+          </a>
+          <p class="mb-4 max-w-xs text-sm text-slate-500 dark:text-slate-400">
+            OPark — платформа за управление на наеми за паркоместа и гаражи с онлайн достъп
+            до информация за задължения и картови плащания чрез Stripe.
+          </p>
+          <a href="mailto:support@rent.opark.bg" class="text-sm text-teal-600 underline underline-offset-2 dark:text-teal-400">
+            support@rent.opark.bg
+            <!-- ⚠ OWNER: Confirm email before publishing -->
+          </a>
+        </div>
+
+        <!-- Navigation -->
+        <div>
+          <h3 class="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Навигация</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#home"         class="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Начало</a></li>
+            <li><a href="#about"        class="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">За OPark</a></li>
+            <li><a href="#how-it-works" class="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Как работи</a></li>
+            <li><a href="#benefits"     class="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Предимства</a></li>
+            <li><a href="#payments"     class="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Плащания</a></li>
+            <li><a href="#contact"      class="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Контакти</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal -->
+        <div>
+          <h3 class="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">Правна информация</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/usloviya.html"               class="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Условия за ползване</a></li>
+            <li><a href="/plashtaniya-i-vrashtane.html" class="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Плащания и връщане</a></li>
+            <li><a href="/poveritelnost.html"          class="text-slate-600 hover:text-teal-600 dark:text-slate-400 dark:hover:text-teal-400">Поверителност</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="mt-10 border-t border-slate-100 pt-6 text-center text-sm text-slate-400 dark:border-slate-800 dark:text-slate-500">
+        &copy; <span data-year></span> OPark. Всички права запазени.
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Theme script (must be before main.js) -->
+  <script type="module" src="/assets/js/theme.js"></script>
+  <script type="module" src="/assets/js/main.js"></script>
+</body>
+</html>
