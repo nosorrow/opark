@@ -81,11 +81,19 @@
         </button>
 
         <!-- CTA button (desktop) -->
-        <a href="#contact" class="btn-primary hidden sm:inline-flex">
+        <a href="#contact" class="btn-primary hidden sm:inline-flex px-4 py-2 text-sm">
           Наеми паркомясто
           <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
           </svg>
+        </a>
+
+        <!-- Login button (desktop) -->
+        <a href="https://rent.opark.bg" target="_blank" rel="noopener noreferrer" class="btn-secondary hidden sm:inline-flex px-4 py-2 text-sm">
+          <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25" />
+          </svg>
+          Вход
         </a>
 
         <!-- Mobile menu button -->
@@ -148,11 +156,19 @@
         <span data-theme-label>Светла тема</span>
       </button>
 
-      <a href="#contact" class="btn-primary w-full justify-center">
+      <a href="#contact" class="btn-primary mb-2 w-full justify-center">
         Наеми паркомясто
         <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
         </svg>
+      </a>
+
+      <!-- Login button (mobile) -->
+      <a href="https://rent.opark.bg" target="_blank" rel="noopener noreferrer" class="btn-secondary w-full justify-center">
+        <svg class="h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l3 3m0 0-3 3m3-3H2.25" />
+        </svg>
+        Вход
       </a>
     </div>
   </div>
@@ -179,8 +195,8 @@
             </h1>
 
             <p class="mb-8 text-lg leading-relaxed text-slate-600 dark:text-slate-400 lg:text-xl">
-              RentOpark предлага собствени паркоместа и гаражи под наем. Наемателите могат лесно
-              да проверяват задълженията си и да заплащат своя наем онлайн с банкова карта чрез Stripe.
+                Предлагаме паркоместа и гаражи под наем. Осигурете си удобно и сигурно място за паркиране, без излишно губене на време в търсене на свободно място.
+                С RentOpark наемът е лесен, а плащането – бързо и удобно онлайн!
             </p>
 
             <div class="flex flex-wrap items-center justify-center gap-3 lg:justify-start">
@@ -248,10 +264,25 @@
                   </div>
                 </div>
 
-                <!-- Illustrative disclaimer -->
-                <p class="mt-4 text-center text-xs text-slate-400 dark:text-slate-500">
-                  * Илюстративен пример за наем на паркомясто в RentOpark
-                </p>
+                <!-- Card Payment Brands -->
+                <div class="mt-4 flex items-center justify-center gap-2.5 pt-1">
+                  <!-- Visa -->
+                  <div class="flex h-7 items-center justify-center rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 shadow-xs dark:border-slate-700 dark:bg-slate-700/50" title="Visa">
+                    <svg class="h-3.5 w-auto" viewBox="0 0 36 12" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Visa">
+                      <path d="M14.6 11.5H12.4L13.8 2.5H16L14.6 11.5ZM21.3 2.7C20.8 2.5 20.1 2.3 19.2 2.3C16.9 2.3 15.3 3.5 15.3 5.2C15.3 6.5 16.5 7.2 17.4 7.6C18.3 8 18.6 8.3 18.6 8.7C18.6 9.3 17.9 9.6 17.2 9.6C16.3 9.6 15.7 9.4 15.1 9.1L14.7 8.9L14.3 11.2C14.9 11.5 16 11.7 17.1 11.7C19.6 11.7 21.2 10.5 21.2 8.6C21.2 7 20.1 6.2 19 5.7C18.2 5.3 17.8 5 17.8 4.5C17.8 4.1 18.3 3.7 19.3 3.7C20.1 3.7 20.7 3.9 21.1 4.1L21.4 4.2L21.8 2.1L21.3 2.7ZM25.8 2.5H24.1C23.5 2.5 23 2.7 22.8 3.3L19.4 11.5H22.1L22.6 10.1H25.9L26.2 11.5H28.6L26.5 2.5H25.8ZM23.2 8.2L24.4 4.9C24.4 4.9 24.8 3.8 24.9 3.4L25.1 4.8L25.6 8.2H23.2ZM11.4 2.5L9.3 8.7L9.1 7.6C8.7 6.4 7.6 5 6.4 4.3L8.3 11.5H11.1L15.2 2.5H11.4Z" fill="#1A1F71" class="dark:fill-[#60A5FA]" />
+                      <path d="M7.7 2.5H4L3.9 2.7C6.9 3.4 9.4 5.2 10.2 7.4L9.4 3.4C9.2 2.7 8.5 2.5 7.7 2.5Z" fill="#F7B600" />
+                    </svg>
+                  </div>
+
+                  <!-- Mastercard -->
+                  <div class="flex h-7 items-center justify-center rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 shadow-xs dark:border-slate-700 dark:bg-slate-700/50" title="Mastercard">
+                    <svg class="h-4 w-auto" viewBox="0 0 32 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Mastercard">
+                      <circle cx="11" cy="10" r="7" fill="#EB001B" />
+                      <circle cx="21" cy="10" r="7" fill="#F79E1B" fill-opacity="0.92" />
+                      <path d="M16 4.9A6.97 6.97 0 0 0 13.3 10c0 2.08.91 3.95 2.36 5.23A6.97 6.97 0 0 0 18.7 10c0-2.08-.91-3.95-2.36-5.23Z" fill="#FF5F00" />
+                    </svg>
+                  </div>
+                </div>
               </div>
 
               <!-- Decorative blobs -->
@@ -319,7 +350,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
               </svg>
             </div>
-            <h3 class="mb-2 text-lg font-semibold text-slate-900 dark:text-white">Онлайн плащания чрез Stripe</h3>
+            <h3 class="mb-2 text-lg font-semibold text-slate-900 dark:text-white">Онлайн плащания с карта</h3>
             <p class="text-slate-600 dark:text-slate-400">
               За максимално удобство на наемателите осигуряваме сигурно онлайн плащане на месечния наем с банкова карта през Stripe Checkout.
             </p>
@@ -432,7 +463,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 0 0 2.25-2.25V6.75A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25v10.5A2.25 2.25 0 0 0 4.5 19.5Z" />
                   </svg>
                 </div>
-                <h3 class="mb-2 font-semibold text-slate-900 dark:text-white">3. Плащане чрез Stripe</h3>
+                <h3 class="mb-2 font-semibold text-slate-900 dark:text-white">3. Плащане с карта</h3>
                 <p class="text-sm text-slate-600 dark:text-slate-400">
                   Наемателят избира онлайн плащане и въвежда данните на своята банкова карта
                   в защитената платежна форма на Stripe Checkout.
@@ -640,7 +671,8 @@
                   <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
                 </svg>
                 <span class="text-slate-700 dark:text-slate-300">
-                  <strong>Защита на банковите данни:</strong> Данните за банковите карти се въвеждат и обработват изцяло от Stripe. RentOpark не съхранява и няма достъп до данни за платежни карти.
+                  <strong>Защита на банковите данни:</strong> Данните за банковите карти се въвеждат и обработват изцяло от доставчик на платежни услуги.
+                  RentOpark не съхранява и няма достъп до данни за платежни карти.
                 </span>
               </li>
               <li class="flex gap-3">
@@ -648,14 +680,10 @@
                   <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
                 </svg>
                 <span class="text-slate-700 dark:text-slate-300">
-                  <strong>Моментално отразяване:</strong> След успешна обработка от Stripe, статусът на наема се обновява автоматично като платен.
+                  <strong>Моментално отразяване:</strong> След успешна обработка от доставчикът на платежни услуги, статусът на наема се обновява автоматично като платен.
                 </span>
               </li>
             </ul>
-
-            <div class="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-800 dark:border-amber-800/40 dark:bg-amber-900/20 dark:text-amber-300">
-              <strong>Забележка:</strong> Stripe е независим лицензиран доставчик на платежни услуги. RentOpark отдава паркоместа и гаражи под наем и не предоставя платежни услуги. Stripe не е страна по наемните отношения и не носи отговорност за стопанисването на наетите обекти.
-            </div>
           </div>
 
           <!-- Right: visual -->
@@ -686,7 +714,7 @@
                 </div>
 
                 <button type="button" disabled class="mt-4 w-full cursor-not-allowed rounded-xl bg-teal-500/50 px-4 py-2.5 text-sm font-semibold text-white">
-                  Плати наем със Stripe
+                  Плати наем с карта
                 </button>
 
                 <p class="mt-3 text-center text-xs text-slate-400 dark:text-slate-500">
